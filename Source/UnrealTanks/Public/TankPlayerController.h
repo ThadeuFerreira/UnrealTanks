@@ -17,6 +17,8 @@ class UNREALTANKS_API ATankPlayerController : public APlayerController
 public:
 	ATank* GetControlledTank() const;
 	virtual void BeginPlay() override;
+
+	//Comment
 	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
