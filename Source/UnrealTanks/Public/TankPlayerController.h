@@ -14,7 +14,7 @@ class UNREALTANKS_API ATankPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 	
-public:
+private:
 	ATank* GetControlledTank() const;
 	virtual void BeginPlay() override;
 
@@ -24,6 +24,16 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	//Move the barrel to the screen crosshair location
-	virtual void AimAtCrossHair() const;
+	virtual void AimTowardsCrossHair();
 
+	virtual bool GetSightRayHitLocation(FVector &HitPosition) const;
+
+	virtual bool GetLookVectorHitLocation(FVector2D ScreenLocation, FVector &HitPosition) const;
+
+	UPROPERTY(EditAnywhere)
+		float CrossHairXLocation = 0.5f;
+	UPROPERTY(EditAnywhere)
+		float CrossHairYLocation = 0.3333f;
+	UPROPERTY(EditAnywhere)
+		float LineTraceRange = 10000;
 };
