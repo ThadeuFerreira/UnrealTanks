@@ -24,10 +24,17 @@ void UTankAimComponent::BeginPlay()
 	
 }
 
+void UTankAimComponent::SetBarrelReference(UStaticMeshComponent* BarrelToSet)
+{
+	Barrel = BarrelToSet;
+}
+
 void UTankAimComponent::AimAt(FVector HitLocation)
 {
 	auto ObjectName = GetOwner()->GetName();
-	UE_LOG(LogTemp, Warning, TEXT(" %s HitLocation = %s"), *ObjectName, *HitLocation.ToString());
+	auto BarrelName = Barrel->GetName();
+	auto BarrelLocation = Barrel->GetComponentLocation().ToString();
+	UE_LOG(LogTemp, Warning, TEXT(" %s Aiming at %s from %s at %s"), *ObjectName, *HitLocation.ToString(), *BarrelName, *BarrelLocation);
 }
 
 // Called every frame
