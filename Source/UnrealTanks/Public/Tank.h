@@ -2,9 +2,8 @@
 
 #pragma once
 
-#include "TankAimComponent.h"
 #include "GameFramework/Pawn.h"
-#include "Tank.generated.h" //Put includes above this line
+#include "Tank.generated.h"
 
 UCLASS()
 class UNREALTANKS_API ATank : public APawn
@@ -12,21 +11,15 @@ class UNREALTANKS_API ATank : public APawn
 	GENERATED_BODY()
 
 public:
-	
-
-	void AimAt(FVector HitLocation);
-
-	UFUNCTION(BlueprintCallable, Category = SetUp)
-	void SetBarrelReference(UStaticMeshComponent* BarrelToSet);
-
-protected:
-	
-	UTankAimComponent* TankAimComponent = nullptr;
-private:
 	// Sets default values for this pawn's properties
 	ATank();
+	virtual void AimAt(FVector HitLocation);
+
+protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
