@@ -5,21 +5,11 @@ using System.Collections.Generic;
 
 public class UnrealTanksTarget : TargetRules
 {
-	public UnrealTanksTarget(TargetInfo Target)
+	public UnrealTanksTarget(TargetInfo Target) : base (Target)
 	{
 		Type = TargetType.Game;
+
+		ExtraModuleNames.Add("UnrealTanks");
 	}
 
-	//
-	// TargetRules interface.
-	//
-
-	public override void SetupBinaries(
-		TargetInfo Target,
-		ref List<UEBuildBinaryConfiguration> OutBuildBinaryConfigurations,
-		ref List<string> OutExtraModuleNames
-		)
-	{
-		OutExtraModuleNames.AddRange( new string[] { "UnrealTanks" } );
-	}
 }

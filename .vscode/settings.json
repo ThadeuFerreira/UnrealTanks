@@ -1,0 +1,10 @@
+{
+	"typescript.tsc.autoDetect": "off",
+	"files.exclude": {
+		"C:/Users/Pichau/Documents/GitHub/UnrealTanks/.git": true,
+		"C:/Users/Pichau/Documents/GitHub/UnrealTanks/.vscode": true,
+		"C:/Users/Pichau/Documents/GitHub/UnrealTanks/Content": true,
+		"C:/Users/Pichau/Documents/GitHub/UnrealTanks/Intermediate": true,
+		"C:/Users/Pichau/Documents/GitHub/UnrealTanks/Saved": true
+	}
+}
