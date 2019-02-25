@@ -2,6 +2,7 @@
 
 #include "UnrealTanks.h"
 #include "Tank.h"
+#include "TankBarrel.h"
 
 
 // Sets default values
@@ -35,7 +36,7 @@ void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 }
 
-void ATank::SetBarrelReference(UStaticMeshComponent* BarrelToSet)
+void ATank::SetBarrelReference(UTankBarrel* BarrelToSet)
 {
 
 	TankAimComponent->SetBarrelReference(BarrelToSet);

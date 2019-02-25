@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "UnrealTanks.h"
+#include "TankBarrel.h"
 #include "TankAimComponent.h"
 
 
@@ -24,7 +25,7 @@ void UTankAimComponent::BeginPlay()
 	
 }
 
-void UTankAimComponent::SetBarrelReference(UStaticMeshComponent* BarrelToSet)
+void UTankAimComponent::SetBarrelReference(UTankBarrel* BarrelToSet)
 {
 	Barrel = BarrelToSet;
 }
@@ -35,7 +36,7 @@ void UTankAimComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 
 	FVector OutLaunchVelocity;
 	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
-	
+	UE_LOG(LogTemp, Warning, TEXT("A1"));
 	
 	if (UGameplayStatics::SuggestProjectileVelocity(
 		this,
@@ -50,18 +51,17 @@ void UTankAimComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 	))
 	{
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
-		MoveBarrelTowards(AimDirection);
-
+		MoveBarrelTowards(AimDirection);		
 	}
 
 	
 }
 
 void UTankAimComponent::MoveBarrelTowards(FVector AimDiretion) {
-
 	auto BarrelRotator = Barrel->GetForwardVector().Rotation();
 	auto AimAsRotator = AimDiretion.Rotation();
 	auto DeltaRotator = AimAsRotator - BarrelRotator;
+	Barrel->Elevate(5);
 
 }
 
