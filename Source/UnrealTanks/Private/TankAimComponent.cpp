@@ -29,12 +29,40 @@ void UTankAimComponent::SetBarrelReference(UStaticMeshComponent* BarrelToSet)
 	Barrel = BarrelToSet;
 }
 
-void UTankAimComponent::AimAt(FVector HitLocation)
+void UTankAimComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 {
-	auto ObjectName = GetOwner()->GetName();
-	auto BarrelName = Barrel->GetName();
-	auto BarrelLocation = Barrel->GetComponentLocation().ToString();
-	UE_LOG(LogTemp, Warning, TEXT(" %s Aiming at %s from %s at %s"), *ObjectName, *HitLocation.ToString(), *BarrelName, *BarrelLocation);
+	if (!Barrel) { return; }
+
+	FVector OutLaunchVelocity;
+	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
+	
+	
+	if (UGameplayStatics::SuggestProjectileVelocity(
+		this,
+		OutLaunchVelocity,
+		StartLocation,
+		HitLocation,
+		LaunchSpeed,
+		false,
+		0,
+		0,
+		ESuggestProjVelocityTraceOption::DoNotTrace
+	))
+	{
+		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
+		MoveBarrelTowards(AimDirection);
+
+	}
+
+	
+}
+
+void UTankAimComponent::MoveBarrelTowards(FVector AimDiretion) {
+
+	auto BarrelRotator = Barrel->GetForwardVector().Rotation();
+	auto AimAsRotator = AimDiretion.Rotation();
+	auto DeltaRotator = AimAsRotator - BarrelRotator;
+
 }
 
 // Called every frame

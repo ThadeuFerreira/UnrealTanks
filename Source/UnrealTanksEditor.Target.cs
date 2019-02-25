@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class UnrealTanksEditorTarget : TargetRules
 {
-	public UnrealTanksEditorTarget(TargetInfo Target)
+	public UnrealTanksEditorTarget(TargetInfo Target) : base (Target)
 	{
 		Type = TargetType.Editor;
 		ExtraModuleNames.Add("UnrealTanks");
