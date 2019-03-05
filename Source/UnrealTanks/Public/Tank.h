@@ -2,11 +2,12 @@
 
 #pragma once
 
-#include "TankAimComponent.h"
 #include "GameFramework/Pawn.h"
 #include "Tank.generated.h" //Put includes above this line
 
 class UTankBarrel;
+class UTankAimComponent;
+
 UCLASS()
 class UNREALTANKS_API ATank : public APawn
 {
@@ -28,8 +29,6 @@ private:
 	ATank();
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;

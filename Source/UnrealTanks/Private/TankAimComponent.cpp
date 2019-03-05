@@ -36,9 +36,8 @@ void UTankAimComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 
 	FVector OutLaunchVelocity;
 	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
-	UE_LOG(LogTemp, Warning, TEXT("A1"));
-	
-	if (UGameplayStatics::SuggestProjectileVelocity(
+
+	auto isPossibleToReach = UGameplayStatics::SuggestProjectileVelocity(
 		this,
 		OutLaunchVelocity,
 		StartLocation,
@@ -48,10 +47,17 @@ void UTankAimComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 		0,
 		0,
 		ESuggestProjVelocityTraceOption::DoNotTrace
-	))
+	);
+	if (isPossibleToReach)
 	{
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
-		MoveBarrelTowards(AimDirection);		
+		MoveBarrelTowards(AimDirection);	
+		auto Time = GetWorld()->GetTimeSeconds();
+		UE_LOG(LogTemp, Warning, TEXT(" %f Aiming at Speed = %f"), Time, 5.0f);
+	}
+	else {
+		auto Time = GetWorld()->GetTimeSeconds();
+		UE_LOG(LogTemp, Warning, TEXT(" %f Cant Reach"), Time);
 	}
 
 	
@@ -61,7 +67,7 @@ void UTankAimComponent::MoveBarrelTowards(FVector AimDiretion) {
 	auto BarrelRotator = Barrel->GetForwardVector().Rotation();
 	auto AimAsRotator = AimDiretion.Rotation();
 	auto DeltaRotator = AimAsRotator - BarrelRotator;
-	Barrel->Elevate(5);
+	Barrel->Elevate(DeltaRotator.Pitch);
 
 }
 
