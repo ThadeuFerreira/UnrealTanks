@@ -63,20 +63,13 @@ void UTankAimComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 		MoveBarrelTowards(AimDirection);	
 		auto Time = GetWorld()->GetTimeSeconds();
 	}
-	else {
-		auto Time = GetWorld()->GetTimeSeconds();
-		UE_LOG(LogTemp, Warning, TEXT(" %f Cant Reach"), Time);
-	}
 
-	
 }
 
 void UTankAimComponent::MoveBarrelTowards(FVector AimDiretion) {
 	auto BarrelRotator = Barrel->GetForwardVector().Rotation();
 	auto AimAsRotator = AimDiretion.Rotation();
 	auto DeltaRotator = AimAsRotator - BarrelRotator;
-	UE_LOG(LogTemp, Warning, TEXT(" %s Delta"), *DeltaRotator.ToString());
-	UE_LOG(LogTemp, Error, TEXT(" %s Aim"), *AimAsRotator.ToString());
 	Barrel->Elevate(DeltaRotator.Pitch);
 	Turret->Rotate(DeltaRotator.Yaw);
 

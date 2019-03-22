@@ -8,6 +8,7 @@
 class UTankBarrel;
 class UTankTurret;
 class UTankAimComponent;
+class AProjectile;
 
 UCLASS()
 class UNREALTANKS_API ATank : public APawn
@@ -15,15 +16,16 @@ class UNREALTANKS_API ATank : public APawn
 	GENERATED_BODY()
 
 public:
-	
-
-	void AimAt(FVector HitLocation);
-
 	UFUNCTION(BlueprintCallable, Category = SetUp)
 	void SetBarrelReference(UTankBarrel* BarrelToSet);
 
 	UFUNCTION(BlueprintCallable, Category = SetUp)
 	void SetTurretReference(UTankTurret* TurretToSet);
+
+	UFUNCTION(BlueprintCallable, Category = Firing)
+	void Fire();
+
+	void AimAt(FVector HitLocation);
 
 protected:
 	
@@ -40,6 +42,9 @@ private:
 	UPROPERTY(EditAnywhere, Category = Firing)
 		float LaunchSpeed = 4000;
 
+	UPROPERTY(EditAnywhere, Category = Setup)
+		TSubclassOf<AProjectile> ProjectileBlueprint;
 
+	UTankBarrel* Barrel = nullptr;
 	
 };
